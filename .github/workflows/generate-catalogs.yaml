@@ -66,9 +66,8 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@153407881ec5c347639a548ade7d8ad1d6740e38 # v5
         with:
-          path: p
-          base: p
-          branch: update-stable-${{ matrix.name }}-${{ matrix.type }}
+          base: main
+          branch: update-${{ matrix.name }}-${{ matrix.type }}
           delete-branch: true
           add-paths: README.md # This is here just to force it to not commit anything
           title: "${{ matrix.name }}: Auto-update tekton ${{ matrix.type }} resources"
@@ -80,6 +79,5 @@ jobs:
       - uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
         with:
           name: ${{ matrix.name }}-${{ matrix.type }}-catalog-artifact
-          path: p/
           retention-days: 3 # We don't need to keep them for long
 
