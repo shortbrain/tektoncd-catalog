@@ -23,7 +23,7 @@ jobs:
         name: Generate catalog matrix
         run: |
           set -Eeu
-          echo "matrix=$(go run ./cmd/catalog-cd catalog externals --config ./externals.yaml)" >> "$GITHUB_OUTPUT"
+          echo "matrix=$(go run github.com/openshift-pipelines/tektoncd-catalog/cmd/catalog-cd catalog externals --config ./externals.yaml)" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
   generate-catalog:
     needs: catalog-matrix
@@ -42,7 +42,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir -p tasks pipelines
-          go run ./cmd/catalog-cd catalog generate-from \
+          go run github.com/openshift-pipelines/tektoncd-catalog/cmd/catalog-cd catalog generate-from \
                  --name ${{ matrix.name }} \
                  --url ${{ matrix.url }} \
                  --type ${{ matrix.type }} \
