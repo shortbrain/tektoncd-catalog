@@ -21,7 +21,7 @@ jobs:
           set -Eeu
           # Fetch catalog-cd
           echo "Installing catalog-cd 0.1.0"
-          curl -sSl https://github.com/openshift-pipelines/catalog-cd/releases/download/v0.1.0/catalog-cd_0.1.0_linux_x86_64.tar.gz | sudo tar xzf - -C /usr/local/bin catalog-cd
+          curl -fsL https://github.com/openshift-pipelines/catalog-cd/releases/download/v0.1.0/catalog-cd_0.1.0_linux_x86_64.tar.gz | sudo tar xzf - -C /usr/local/bin catalog-cd
           # Run catalog-cd
           echo "matrix=$(catalog-cd catalog externals --config ./externals.yaml)" >> "$GITHUB_OUTPUT"
           cat "$GITHUB_OUTPUT"
@@ -38,7 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Installing catalog-cd 0.1.0"
-          curl -sSl https://github.com/openshift-pipelines/catalog-cd/releases/download/v0.1.0/catalog-cd_0.1.0_linux_x86_64.tar.gz | sudo tar xzf - -C /usr/local/bin catalog-cd
+          curl -fsL https://github.com/openshift-pipelines/catalog-cd/releases/download/v0.1.0/catalog-cd_0.1.0_linux_x86_64.tar.gz | sudo tar xzf - -C /usr/local/bin catalog-cd
 
           mkdir -p tasks pipelines
           catalog-cd catalog generate-from \
