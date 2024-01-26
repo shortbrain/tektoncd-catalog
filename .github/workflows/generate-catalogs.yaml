@@ -12,17 +12,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository_owner == 'shortbrain' # do not run this elsewhere
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      matrix: ${{ steps.set-matrix.outputs.pull-from-list }}
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - uses: openshift-pipelines/catalog-cd/actions/setup-catalog-cd@main
       - id: set-matrix
         name: Generate catalog matrix
-        run: |
-          set -Eeu
-          # Run catalog-cd
-          echo "matrix=$(catalog-cd catalog externals --config ./externals.yaml)" >> "$GITHUB_OUTPUT"
-          cat "$GITHUB_OUTPUT"
+        uses: openshift-pipelines/catalog-cd/actions/generate-pull-from-matrix@main
   generate-catalog:
     needs: catalog-matrix
     runs-on: ubuntu-latest
